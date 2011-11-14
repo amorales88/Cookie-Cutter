@@ -1,0 +1,324 @@
+----------------------------------------------------------------------------
+// Basics and I/O
+----------------------------------------------------------------------------
+
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+int main ()
+{
+  string mystr;
+  float price=0;
+  int quantity=0;
+
+  cout << "Enter price: ";
+  getline (cin,mystr);
+  stringstream(mystr) >> price;
+  cout << "Enter quantity: ";
+  getline (cin,mystr);
+  stringstream(mystr) >> quantity;
+  cout << "Total price: " << price*quantity << endl;
+  return 0;
+} 
+
+----------------------------------------------------------------------- 
+// Deal with hexadecimal, decimal and octal values
+
+#include <iostream>
+using namespace std;
+
+int main () {
+  int n;
+  n=70;
+  cout << hex <<  << n << "::Number" << <<endl;
+  cout << dec << n << endl;
+  cout << oct << n << endl;
+  return 0;
+}
+
+-----------------------------------------------------------------------
+//Dynamic Memory Allocation
+-----------------------------------------------------------------------
+
+-----------------------------------------------------------------------
+//example 1: character array
+
+#include <iostream>
+#include <new>
+using namespace std;
+
+int main () {
+  cout << "Attempting to allocate 1 MiB...";
+  char* p = new (nothrow) char [1048576];
+  if (p==0) cout << "Failed!\n";
+  else {
+    cout << "Success!\n";
+    delete[] p;
+  }
+  return 0;
+}
+
+------------------------------------------------------------------------
+// example 2: 2d array
+
+#include <iostream>
+#include <new>
+using namespace std;
+argc - number of arguments
+argv - actual arguments
+
+argv[0]
+argv[1]
+
+int main (int *argc, char *argv[]) {
+	double** buf2d;
+	buf2d = new double*[number_of_parts];
+	for(i = 0; i < number_of_parts; ++i)
+	  buf2d[i] = new double[12];
+
+	// to get point 5 in part C:
+	buf2d[2][5];
+
+	// cleanup is equally ugly:
+	for(i = 0; i < number_of_parts; ++i)
+	  delete[] buf2d[i];
+	delete[] buf2d;
+}
+
+--------------------------------------------------------------------------
+Example 1: Basics, Constructors and Destructors
+
+i) class - encapsulation of data and the associated methods
+ii) access specifiers (public, private, protected)
+
+#include <iostream>
+using namespace std;
+
+class CRectangle {
+    int *width, *height;
+  public:
+    CRectangle (int,int);
+    ~CRectangle ();
+    int area (void);
+};
+
+CRectangle::CRectangle (int a, int b) {
+  width = new int;
+  height = new int;
+  *width = a;
+  *height = b;
+}
+
+CRectangle::~CRectangle () {
+  delete width;
+  delete height;
+}
+
+int CRectangle::area(void){
+  return (*width * *height);
+}
+
+int main () {
+ CRectangle *pObject;
+ pObject = new CRectangle(5,6);
+ delete pObject;
+  CRectangle rect (3,4), rectb (5,6);
+  cout << "rect area: " << rect.area() << endl;
+  cout << "rectb area: " << rectb.area() << endl;
+  return 0;
+}
+
+---------------------------------------------------------------------------
+Example 2: Inheritance
+
+i) concept of base class and derived class
+
+// derived classes
+#include <iostream>
+using namespace std;
+
+class CPolygon {
+  protected:
+    int width, height;
+  public:
+    void set_values (int a, int b)
+      { width=a; height=b;}
+  };
+
+class CRectangle: public CPolygon {
+  public:
+    int area ()
+      { return (width * height); }
+  };
+
+class CTriangle: public CPolygon {
+  public:
+    int area ()
+      { return (width * height / 2); }
+  };
+  
+int main () {
+  CRectangle rect;
+  CTriangle trgl;
+  rect.set_values (4,5);
+  trgl.set_values (4,5);
+  cout << rect.area() << endl;
+  cout << trgl.area() << endl;
+  return 0;
+}
+
+---------------------------------------------------------------------------------
+//Templates and Containers
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Example 1: templates
+
+#include <iostream>
+using namespace std;
+
+template <class T>
+T GetMax (T a, T b) {
+  return (a>b?a:b);
+}
+
+int main () {
+  int i=5, j=6, k;
+  long l=10, m=5, n;
+  k=GetMax(i,j);
+  n=GetMax(l,m);
+  cout << k << endl;
+  cout << n << endl;
+  return 0;
+}
+
+---------------------------------------------------------------------------------
+Example 2: vector, list, queue, stack, map, bitset
+
+// map
+
+#include <iostream>
+#include <map>
+
+using namespace std;
+
+int main ()
+{
+  map<char,int> mymap;
+  mymap['a']=101;
+  mymap['b']=202;
+  mymap['c']=302;
+
+  cout << "mymap.size() is " << (int) mymap.size() << endl;
+
+  return 0;
+}
+
+//bitset
+
+#include <iostream>
+#include <bitset>
+using namespace std;
+
+int main ()
+{
+  bitset<4> mybits;
+
+  cout << mybits.set() << endl;       // 1111
+  cout << mybits.set(2,0) << endl;    // 1011
+  cout << mybits.set(2) << endl;      // 1111
+
+  return 0;
+}
+
+-----------------------------------------------------------------------------
+Example:
+
+// Main memory example
+
+// header file main_memory.h
+
+#ifndef _MAIN_MEMORY_H
+#define _MAIN_MEMORY_H
+
+#define HEX 0
+#define DEC 1
+#define OCT 2
+
+#include<iostream>
+
+using namespace std;
+
+class MainMemory{
+	private:
+		int *memory;
+		int size;
+	public: 
+		MainMemory(int capacity);
+		~MainMemory();
+		void print_contents(int from, int to, int format);
+		void set_content(int location, int value);
+		void reset_content(void);
+};
+
+#endif
+
+//class file main_memory.cc
+
+//class file main_memory.cc
+
+#include <iostream>
+#include <new>
+
+#include "main_memory.h"
+
+using namespace std;
+
+MainMemory::MainMemory(int capacity){
+     size = capacity;
+     memory = new (nothrow) int [capacity];
+     if (memory==0){
+	cout << "Failed to allocate memory!\n";
+     } 
+}
+
+MainMemory::~MainMemory(){
+     if(memory != NULL){
+	delete [] memory;	
+     } 
+}
+
+void MainMemory::print_contents(int from, int to, int format){
+	if(from > 0 && to < size && memory != NULL){
+		for(int i = from; i <= to ; i++){
+			if(format == HEX){
+				cout << hex << memory[i] << endl;
+			}else if(format == DEC){
+				cout << dec << memory[i] << endl;
+			}else if(format == OCT){
+				cout << oct << memory[i] << endl;
+			}else{
+				cout << "Invalid output format" << endl;
+			}
+		}
+	}
+}
+
+void MainMemory::set_content(int location, int value){
+	if(location > -1 && location < size && memory != NULL){
+		memory[location] = value;
+	}else{
+		cout << "Invalid memory location or memory NULL" << endl;
+	}
+}
+
+void MainMemory::reset_content(void){
+	if(size > 0 && memory != NULL){
+		for(int i = 0; i < size; i++){
+			memory[i] = 0;
+	  	}
+	}
+}
+
+
