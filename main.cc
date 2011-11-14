@@ -1,9 +1,11 @@
 #include <cstdlib>
 #include <stdio.h>
 #include <iostream>
+#include <string>
 #include "funcs.h"
 
 using namespace std;
+
 
 int main (int argc, char *argv[ ])
 {
@@ -17,12 +19,13 @@ int main (int argc, char *argv[ ])
   int cache_associativity = 0;
 
   if(!parseParams(argc, argv, cache_capacity, cache_blocksize, cache_associativity)) {
-	exit(2);
+	  exit(2);
   }
   
   cout << "Cache Capacity: " << cache_capacity << endl;
   cout << "Cache BlockSize: " << cache_blocksize << endl;
   cout << "Cache Associativity: " << cache_associativity << endl;
-
+  
+  
 }
 
