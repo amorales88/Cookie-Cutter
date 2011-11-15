@@ -32,9 +32,15 @@ int main (int argc, char *argv[ ])
   cout << "Cache Associativity: " << cache_associativity << endl;
   
   num_blocks = (cache_capacity * 1024) / cache_blocksize;
-  //TODO 
-  int cache[num_blocks][cache_blocksize];
+  //TODO move the cache to its own class or object, somewhere outside of main()
   
+  /* create a cache where num_blocks = #lines, blocksize=bytes in line, each
+   * byte is currently represented by char (since its size is 1 byte).
+   * Again. Moving the code below to its own class would be best.
+   */
+  char cache[num_blocks][cache_blocksize];
+  
+  // initialize all values in the cache to zero
   for (int i = 0; i < num_blocks; i++) {
     for (int j = 0; j < cache_blocksize; j++) {
       cache[i][j] = 0;

@@ -1,0 +1,8 @@
+-- This file just lists some objectives which we should aim to complete in the
+-- near future. There is a lot more to be done than what is listed, though
+
+11/14/11:
+	* create a cache class
+	* read addresses
+	* analyse the test cases on the project webpage
+	* equation for tag size and data word size
