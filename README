@@ -1,0 +1,13 @@
+capacity = # of words in a cache or the size of cache in KB
+associativity = # of words per block
+blocksize = # of bytes per block
+
+number of lines = capacity / blocksize 
+tag size = 
+
+index represents number of lines
+check tag of line, if it matches the tag of the address, then hit, otherwise miss.
+	if its a miss, write the new tag/data, count as a miss
+	else count as a hit
+then send it to memory
+

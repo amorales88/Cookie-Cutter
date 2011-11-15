@@ -17,6 +17,11 @@ int main (int argc, char *argv[ ])
   int cache_capacity = 0;
   int cache_blocksize = 0;
   int cache_associativity = 0;
+  int num_blocks = 0;
+  int tag_size = 0;
+  int data_size = 0;
+  int miss_rate = 0;
+  int hit_rate = 0;
 
   if(!parseParams(argc, argv, cache_capacity, cache_blocksize, cache_associativity)) {
 	  exit(2);
@@ -26,6 +31,14 @@ int main (int argc, char *argv[ ])
   cout << "Cache BlockSize: " << cache_blocksize << endl;
   cout << "Cache Associativity: " << cache_associativity << endl;
   
+  num_blocks = (cache_capacity * 1024) / cache_blocksize;
+  //TODO 
+  int cache[num_blocks][cache_blocksize];
   
+  for (int i = 0; i < num_blocks; i++) {
+    for (int j = 0; j < cache_blocksize; j++) {
+      cache[i][j] = 0;
+    }
+  }
 }
 

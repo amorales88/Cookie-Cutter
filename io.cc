@@ -1,5 +1,6 @@
-#include <iostream.h>
+#include <iostream>
 #include <stdio.h>
+
 
 #define CACHE_READ 0
 #define CACHE_WRITE 1
@@ -14,10 +15,10 @@ int main(void)
 	int address;
 	unsigned int data;
 
-	int memory[100];
+	int memory[16384];
 
 	//initialise memory
-	for(i=0; i< 100; i++)
+	for(i=0; i< sizeof(memory) / sizeof(int); i++)
 	{
 	  memory[i] = i;
 	}
